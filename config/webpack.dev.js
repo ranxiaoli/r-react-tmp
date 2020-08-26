@@ -11,10 +11,18 @@ const config = {
 		hot: true, // 热加载
 	},
 	devtool: "inline-source-map",
+	resolve: {
+		alias: {
+			"@": path.resolve(__dirname, '../src')
+		}
+	}
 };
 
 const options = {
 	mode: "development",
 };
 
-module.exports = merge(webpackConfigCreator(options), config);
+const webpackConfig = merge(webpackConfigCreator(options), config);
+module.exports = webpackConfig
+
+

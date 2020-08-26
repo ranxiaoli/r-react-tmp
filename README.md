@@ -1,6 +1,2 @@
 ### R-REACT-CLI  
-ddd
-
-ddd
-
-ddd
+to create a project

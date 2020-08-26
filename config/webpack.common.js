@@ -12,6 +12,7 @@ function webpackCommonConfigCreator(options) {
 			// filename: "js/[name][hash].js",
 			path: path.resolve(__dirname, "../build"),
 			publicPath: "/",
+			chunkFilename: 'js/[id].[chunkhash].js'
 		},
 		plugins: [
 			new HtmlWebpackPlugin({
@@ -37,7 +38,7 @@ function webpackCommonConfigCreator(options) {
 							loader: "babel-loader",
 							options: {
 								presets: ["@babel/preset-react"],
-								plugins: ["react-hot-loader/babel"],
+								plugins: ["react-hot-loader/babel", 'syntax-dynamic-import'],
 							},
 						},
 					],
