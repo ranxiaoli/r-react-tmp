@@ -1,9 +1,4 @@
-/**
- * @author lizhangrui
- * @param {path} 相对路径
- */
 
- 
 const ROUTE_PREFIX = ""
 
 function createBrowserPath(path) {
