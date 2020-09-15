@@ -1,2 +1,2 @@
-### R-REACT-CLI  
-to create a project
+### R-REACT-Template 
+to create a basic project

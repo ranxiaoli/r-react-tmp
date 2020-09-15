@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDom from "react-dom";
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducer from '@/redux/reducers'
 import App from "./App.js";
 import "antd/dist/antd.css";
 
@@ -11,4 +14,17 @@ const getConfirmation = (message, callback) => {
   callback(allowTransition)
 }
 
-ReactDom.render(<BrowserRouter  keyLength={12}  forceRefresh={!supportsHistory} getUserConfirmation={getConfirmation} ><App /></BrowserRouter>, document.getElementById("root"));
+const store = createStore(rootReducer)
+
+ReactDom.render(
+  <BrowserRouter
+    keyLength={12}
+    forceRefresh={!supportsHistory}
+    getUserConfirmation={getConfirmation}
+  >
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </BrowserRouter>,
+  document.getElementById("root")
+);

@@ -1,5 +1,5 @@
 import React from 'react'
-import { HashRouter as Router, Link, Route, NavLink, Switch } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 const RouteWithSubRoutes = route => (
   <Route
@@ -13,7 +13,7 @@ const RouteWithSubRoutes = route => (
 );
 
 const Tacos = ({ routes }) => {
-  console.log(routes, "=====================routes")
+ 
   return (
     <div>
       <h2>Tacos</h2>

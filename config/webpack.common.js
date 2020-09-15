@@ -6,7 +6,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 function webpackCommonConfigCreator(options) {
 	return {
 		mode: options.mode,
-		entry: "./src/index.js", // 入口文件
+		entry: ['babel-polyfill', "./src/index.js"], // 入口文件
 		// 出口文件
 		output: {
 			// filename: "js/[name][hash].js",
@@ -61,7 +61,6 @@ function webpackCommonConfigCreator(options) {
 									localsConvention: "camelCase", // 文档上面找不到这个属性，设置了之后未生效
 								},
 							},
-							"less-loader",
 							{
 								loader: "postcss-loader", // 对css3属性添加前缀 ???
 								options: {
@@ -72,6 +71,7 @@ function webpackCommonConfigCreator(options) {
 									],
 								},
 							},
+							"less-loader",
 						],
 					}),
 				},
@@ -120,6 +120,9 @@ function webpackCommonConfigCreator(options) {
 				minChunks: 1,
 			},
 		},
+		resolve: {
+			extensions: [".js", ".jsx", ".json"]
+		}
 	};
 }
 module.exports = webpackCommonConfigCreator;

@@ -12,6 +12,8 @@ const asyncComponent = loadComponent => (
 
       this.hasLoadedComponent = this.hasLoadedComponent.bind(this);
     }
+    
+    // eslint-disable-next-line react/no-deprecated
     componentWillMount() {
       if (this.hasLoadedComponent()) {
         return;

@@ -15,9 +15,9 @@ import g from '@/utils/browserPath'
  * 判断是否是第n级子地址
  * @param {url} 地址
  */
-export function isDeepChild(url) {
-  return routeMap.get(url) && routeMap.get(url).isDeepChild || false
-}
+// export function isDeepChild(url) {
+//   return routeMap.get(url) && routeMap.get(url).isDeepChild || false
+// }
 
 /**
  * 得到路由匹配的栈

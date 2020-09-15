@@ -12,6 +12,7 @@ function uuid() {
 }
 
 export default class Emitter {
+  
   events = {};
 
   on(name, handler) {

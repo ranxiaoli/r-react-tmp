@@ -6,7 +6,8 @@ import React from 'react'
 
 export default function dynamic(loadComponent) {
   class Load extends React.Component {
-    constructor(props) {
+    constructor() {
+      super();
       this.state = {
         Module: null,
       }

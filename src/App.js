@@ -1,89 +1,20 @@
 import React from "react";
 import { hot } from "react-hot-loader/root";
-// import "./app.css";
-import { BrowserRouter as Router, Link, Route, NavLink, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import VTree from './components/VTree'
+import Footer from '@/components/Footer'
+import AddTodo from '@/pages/containers/AddTodo'
+import VisibleTodoList from '@/pages/containers/VisibleTodoList'
 import routes from './router/router.config';
-// import Routes from './router';
-import Sandwiches from '@/pages/sandwiches';
-import Tacos from '@/pages/tacos';
-import Bus from '@/pages/tacos/bus';
-import Cart from '@/pages/tacos/cart';
 import styles from "./app.less";
-import close from "./assets/close.png";
-import bg from "./assets/green-bottom-bg.svg";
-import Btn from "@/components/Btn";
-
-// const Sandwiches = () => <h2>Sandwiches</h2>;
-
-// const Tacos = ({ routes }) => (
-//   <div>
-//     <h2>Tacos</h2>
-//     <ul>
-//       <li>
-//         <Link to="/tacos/bus">Bus</Link>
-//       </li>
-//       <li>
-//         <Link to="/tacos/cart">Cart</Link>
-//       </li>
-//     </ul>
-
-//     {routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
-//   </div>
-// );
-
-// const Bus = () => <h3>Bus</h3>;
-// const Cart = () => <h3>Cart</h3>;
-// const routes = [
-//   {
-//     path: "/sandwiches",
-//     component: Sandwiches
-//   },
-//   {
-//     path: "/tacos",
-//     component: Tacos,
-//     routes: [
-//       {
-//         path: "/tacos/bus",
-//         component: Bus
-//       },
-//       {
-//         path: "/tacos/cart",
-//         component: Cart
-//       }
-//     ]
-//   }
-// ];
-
-const Home = () => (
-	<div>
-		<h2>Home</h2>
-	</div>
-)
-
-const About = () => (
-	<div>
-		<h2>About</h2>
-	</div>
-)
-
-
-const User = () => (
-	<div>
-		<h2>User</h2>
-	</div>
-)
 
 const RouteWithSubRoutes = route => {
-	console.log(route, "===============route")
-	
 	return (
 		<Route
 			path={route.path}
 			render={props => (
-				// pass the sub-routes down to keep nesting
 				<route.component {...props} routes={route.routes} />
 			)}
-		// component={(props) => <route.component {...props} routes={route.routes} />}
 		/>
 	)
 };
@@ -100,47 +31,69 @@ const RouteConfigExample = () => {
 					<Link to="/sandwiches">Sandwiches</Link>
 				</li>
 			</ul>
-			{/* {routes} */}
-			{/* <Routes /> */}
 			{routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
+			
 		</div>
+
 	</Router>)
 }
 
 
+
+
 function App() {
+
+	const treeDataSetting = {
+		dataKey: 'id',
+		dataViewKey: 'resource_name',
+		childArrayKey: 'child',
+		// needLoadData: (node) => {
+		// 	if (node.id === 45) {
+		// 		return true;
+		// 	}
+		// 	return false;
+		// },
+		// loadData: () => new Promise((resolve) => {
+		// 	setTimeout(() => {
+		// 		const arr = [];
+		// 		const gaps = 120000;
+		// 		for (let i = gaps; i < gaps + 3000; i++) {
+		// 			arr.push({ id: i, resource_name: `异步测试${i}`, child: [{ id: i + 100000, resource_name: `异步测试${i + 100000}` }] });
+		// 		}
+		// 		resolve({ isSuccess: true, data: arr });
+		// 	}, 1000);
+		// })
+	}
+
+	const mockData = () => {
+		const arr = [];
+		const baseGap = 10000;
+		for (let i = 1; i < baseGap; i++) {
+			arr.push({
+				id: i, resource_name: `异步测试${i}`, child: [
+					{ id: i + baseGap, resource_name: `异步测试${i + baseGap}` },
+					{ id: i + baseGap * 2, resource_name: `异步测试${i + baseGap * 2}`, }
+				]
+			});
+		}
+		return [{ id: 0, resource_name: '根', child: arr }]
+	};
+
+	const __mockData = mockData()
 	return (
 		<div className={styles.titleAA}>
-
-			{/* <img src={close} alt="" />
-			<img src={bg} alt="" />
-			<Btn /> */}
-			{/* <div> */}
-			{/* <br /> */}
-			{/* <Router>
-					<div className="App"> */}
-			{/* <Link to="/">Home</Link>
-						<Link to="/about">About</Link>
-						<Link to="/product">Product</Link>
-						<hr />
-						<Route path="/" exact component={Home}></Route>
-						<Route path="/about" component={About}></Route> */}
-			{/* <Route path="/product" component={Product}></Route> */}
-			{/* // 选中后被添加class selected */}
-			{/* <NavLink to={'/'} exact activeClassName='selected'>Home</NavLink> */}
-			{/* // 选中后被附加样式 color:red */}
-			{/* <NavLink to={'/product'} activeStyle={{ color: 'red' }}>Gallery</NavLink> */}
-			{/* </div> */}
-
-			{/* <Switch>
-							<Route exact path="/" component={Home} />
-							<Route path="/about" component={About} />
-							<Route path="/:user" component={User} /> */}
-			{/* <Route component={NoMatch} /> */}
-			{/* </Switch> */}
-			{/* </Router> */}
 			<RouteConfigExample />
-			{/* // </div> */}
+			<div style={{ height: 300 }}>
+				<VTree
+					dataSetting={treeDataSetting}
+					data={__mockData}
+				/>
+			</div>
+			<div>
+				<AddTodo />
+				<VisibleTodoList />
+				<Footer />
+			</div>
 		</div>
 	);
 }

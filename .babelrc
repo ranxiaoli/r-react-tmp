@@ -1,1 +1,18 @@
-{ "plugins": ["syntax-dynamic-import"]}
+{
+  "presets": [
+    "@babel/env",
+    "@babel/react"
+  ],
+  "plugins": [
+    [
+      "syntax-dynamic-import",
+      {
+        "helpers": false,
+        "polyfill": false,
+        "regenerator": true,
+        "moduleName": "babel-runtime"
+      }
+    ],
+    "@babel/plugin-proposal-class-properties"
+  ]
+}
