@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { addTodo } from '@/redux/actions';
 
 const AddTodo = ({ dispatch }) => {
-  let input
+  let input;
 
   return (
     <div>

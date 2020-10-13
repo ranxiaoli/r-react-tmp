@@ -1,13 +1,18 @@
 import React from "react";
 import { hot } from "react-hot-loader/root";
+import { Menu } from 'antd';
+import { MailOutlined } from '@ant-design/icons';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
-import VTree from './components/VTree'
+// import VTree from './components/VTree'
 import Footer from '@/components/Footer'
 import AddTodo from '@/pages/containers/AddTodo'
 import VisibleTodoList from '@/pages/containers/VisibleTodoList'
 import routes from './router/router.config';
-import styles from "./app.less";
+import './app.less'
 
+const { SubMenu } = Menu;
+
+// Routes
 const RouteWithSubRoutes = route => {
 	return (
 		<Route
@@ -20,79 +25,76 @@ const RouteWithSubRoutes = route => {
 };
 
 const RouteConfigExample = () => {
-	// const arr = routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)
-	return (<Router>
-		<div>
-			<ul>
-				<li>
-					<Link to="/tacos">Tacos</Link>
-				</li>
-				<li>
-					<Link to="/sandwiches">Sandwiches</Link>
-				</li>
-			</ul>
-			{routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
-			
-		</div>
-
-	</Router>)
+  // 创建菜单 -- routes.config.js
+  const createMenu = ((routerMenus) => {
+    let subMenuIndex = 0;
+    let menus = [];
+    const create = (routerMenus, el) => {
+      for(let i=0; i<routerMenus.length; i++) {
+        // 有子路由
+        if(routerMenus[i].routes) {
+          let childRoutes = [];
+          create(routerMenus[i].routes, childRoutes);
+          subMenuIndex ++;
+          el.push(
+            <SubMenu
+              key={`sub${subMenuIndex}`}
+              title={
+                <span>
+                  <MailOutlined />
+                  <span>{routerMenus[i].name}</span>
+                </span>
+              }
+            >
+              {childRoutes}
+            </SubMenu>
+          )
+        }else { // 如果没有子路由
+          el.push(
+          <Menu.Item key={routerMenus[i].path}>
+            <Link to={routerMenus[i].path}>{routerMenus[i].name}</Link>
+          </Menu.Item>
+          )
+        }
+      }
+    }
+    create(routerMenus, menus);
+    return menus;
+  })(routes)
+  
+  // Menus 
+  const MenusWithRoutes = () => {
+    return (
+    <Menu
+      defaultSelectedKeys={[window.location.pathname]}
+      defaultOpenKeys={['sub1']}
+      mode="inline"
+    >
+      {createMenu}
+    </Menu>
+    )
+  }
+	return (
+		<Router>
+			<nav className="nav">
+        {MenusWithRoutes()}
+			</nav>
+			<main className="main">
+				{routes.map((route, i) => <RouteWithSubRoutes key={i} {...route} />)}
+				<AddTodo />
+				<Footer />
+				<VisibleTodoList />
+			</main>
+		</Router>
+	)
 }
 
-
-
-
 function App() {
-
-	const treeDataSetting = {
-		dataKey: 'id',
-		dataViewKey: 'resource_name',
-		childArrayKey: 'child',
-		// needLoadData: (node) => {
-		// 	if (node.id === 45) {
-		// 		return true;
-		// 	}
-		// 	return false;
-		// },
-		// loadData: () => new Promise((resolve) => {
-		// 	setTimeout(() => {
-		// 		const arr = [];
-		// 		const gaps = 120000;
-		// 		for (let i = gaps; i < gaps + 3000; i++) {
-		// 			arr.push({ id: i, resource_name: `异步测试${i}`, child: [{ id: i + 100000, resource_name: `异步测试${i + 100000}` }] });
-		// 		}
-		// 		resolve({ isSuccess: true, data: arr });
-		// 	}, 1000);
-		// })
-	}
-
-	const mockData = () => {
-		const arr = [];
-		const baseGap = 10000;
-		for (let i = 1; i < baseGap; i++) {
-			arr.push({
-				id: i, resource_name: `异步测试${i}`, child: [
-					{ id: i + baseGap, resource_name: `异步测试${i + baseGap}` },
-					{ id: i + baseGap * 2, resource_name: `异步测试${i + baseGap * 2}`, }
-				]
-			});
-		}
-		return [{ id: 0, resource_name: '根', child: arr }]
-	};
-
-	const __mockData = mockData()
 	return (
-		<div className={styles.titleAA}>
-			<RouteConfigExample />
-			<div style={{ height: 300 }}>
-				<VTree
-					dataSetting={treeDataSetting}
-					data={__mockData}
-				/>
-			</div>
-			<div>
-				<AddTodo />
-				<VisibleTodoList />
-				<Footer />
+		<div className="container">
+			<header className="header">R-React-TMP</header>
+			<div className="content">
+				<RouteConfigExample />
 			</div>
 		</div>
 	);

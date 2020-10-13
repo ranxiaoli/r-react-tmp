@@ -7,10 +7,9 @@ function webpackCommonConfigCreator(options) {
 	return {
 		mode: options.mode,
 		entry: ['babel-polyfill', "./src/index.js"], // 入口文件
-		// 出口文件
-		output: {
-			// filename: "js/[name][hash].js",
-			path: path.resolve(__dirname, "../build"),
+		output: {// 出口文件
+			filename: "js/[name][hash].js",
+			path: path.resolve(__dirname, "../server/dist"),
 			publicPath: "/",
 			chunkFilename: 'js/[id].[chunkhash].js'
 		},
@@ -121,7 +120,10 @@ function webpackCommonConfigCreator(options) {
 			},
 		},
 		resolve: {
-			extensions: [".js", ".jsx", ".json"]
+			extensions: [".js", ".jsx", ".json"],
+			alias: {
+				"@": path.resolve(__dirname, '../src')
+			}
 		}
 	};
 }

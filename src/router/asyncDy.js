@@ -27,9 +27,7 @@ const asyncComponent = loadComponent => (
           });
         })
         .catch(error => {
-
           console.error('cannot load Component in <AsyncComponent>');
-
           throw error;
         })
     }

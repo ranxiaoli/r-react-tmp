@@ -1,6 +1,38 @@
-.titleAA {
-	font-size: 18px;
-	font-weight: 800;
-	color: #333;
-	text-decoration: underline;
+
+
+:global {
+	* {
+		padding: 0;
+		margin: 0;
+	}
+	#root {
+		height: 100%;
+		width: 100%;
+	}
+	.container {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		width: 100%;
+		.header {
+			height: 60px;
+			width: 100%;
+			border-bottom: 1px solid #ccc;
+		}
+		.content {
+			display: flex;
+			flex: 1;
+			height: calc(100% - 60px);
+			.nav {
+				width: 200px;
+				border-right:  1px solid #ccc;
+			}
+			.main {
+				flex: 1;
+			}
+		}
+		
+	}
+	
+
 }

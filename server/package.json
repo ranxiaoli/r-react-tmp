@@ -1,0 +1,14 @@
+{
+  "name": "r-server",
+  "version": "1.0.0",
+  "description": "just server",
+  "main": "app.js",
+  "scripts": {
+    "test": "nodde ./app.js"
+  },
+  "author": "ranxiaoli",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
