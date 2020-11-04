@@ -1,2 +1,2 @@
 ### R-REACT-Template 
-to create a basic project
+this is simple js-react project
