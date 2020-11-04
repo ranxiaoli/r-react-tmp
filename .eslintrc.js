@@ -1,98 +1,48 @@
 module.exports = {
-    "parser": "babel-eslint",
-    "env": {
-        "browser": true,
-        "es2020": true,
-        "node": true
-    },
-    "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
-    ],
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 11,
-        "sourceType": "module",
-    },
-    "plugins": [
-        "react"
-    ],
-    rules: {
-      // 'react/jsx-one-expression-per-line': 0,
-      'react/prop-types': 0,
-      // 'react/forbid-prop-types': 0,
-      // 'react/jsx-indent': 0,
-      // 'react/jsx-wrap-multilines': ['error', { declaration: false, assignment: false }],
-      // 'react/jsx-filename-extension': 0,
-      // 'react/state-in-constructor': 0,
-      // 'react/jsx-props-no-spreading': 0,
-      // 'react/destructuring-assignment': 0, // TODO: remove later
-      // 'react/require-default-props': 0,
-      // 'react/sort-comp': 0,
-      // 'react/display-name': 0,
-      // 'react/static-property-placement': 0,
-      // 'react/no-find-dom-node': 0,
-      // 'react/no-unused-prop-types': 0,
-      // 'react/default-props-match-prop-types': 0,
-      // 'react-hooks/rules-of-hooks': 2, // Checks rules of Hooks
-  
-      // 'import/extensions': 0,
-      // 'import/no-cycle': 0,
-      // 'import/no-extraneous-dependencies': [
-      //   'error',
-      //   {
-      //     devDependencies: [
-      //       'site/**',
-      //       'tests/**',
-      //       'scripts/**',
-      //       '**/*.test.js',
-      //       '**/__tests__/*',
-      //       '*.config.js',
-      //       '**/*.md',
-      //     ],
-      //   },
-      // ],
-      // 'jsx-a11y/no-static-element-interactions': 0,
-      // 'jsx-a11y/anchor-has-content': 0,
-      // 'jsx-a11y/click-events-have-key-events': 0,
-      // 'jsx-a11y/anchor-is-valid': 0,
-      // 'jsx-a11y/no-noninteractive-element-interactions': 0,
-      // // label-has-for has been deprecated
-      // // https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/label-has-for.md
-      // 'jsx-a11y/label-has-for': 0,
-  
-      // 'comma-dangle': ['error', 'always-multiline'],
-      // 'consistent-return': 0, // TODO: remove later
-      // 'no-param-reassign': 0, // TODO: remove later
-      // 'no-underscore-dangle': 0,
-      // // for (let i = 0; i < len; i++)
-      // 'no-plusplus': 0,
-      // // https://eslint.org/docs/rules/no-continue
-      // // labeledLoop is conflicted with `eslint . --fix`
-      // 'no-continue': 0,
-      // // ban this for Number.isNaN needs polyfill
-      // 'no-restricted-globals': 0,
-      // 'max-classes-per-file': 0,
-  
-      // 'jest/no-test-callback': 0,
-      // 'jest/expect-expect': 0,
-      // 'jest/no-done-callback': 0,
-      // 'jest/valid-title': 0,
-      // 'jest/no-conditional-expect': 0,
-  
-      // 'unicorn/better-regex': 2,
-      // 'unicorn/prefer-trim-start-end': 2,
-      // 'unicorn/expiring-todo-comments': 2,
-      // 'unicorn/no-abusive-eslint-disable': 2,
-  
-      // // https://github.com/typescript-eslint/typescript-eslint/issues/2540#issuecomment-692866111
-      // 'no-use-before-define': 0,
-      // '@typescript-eslint/no-use-before-define': 2,
-      // 'no-shadow': 0,
-      // '@typescript-eslint/no-shadow': [2, { ignoreTypeValueShadow: true }],
-      // // https://github.com/typescript-eslint/typescript-eslint/issues/2528#issuecomment-689369395
-      // 'no-undef': 0,
-    },
+  parser: '@typescript-eslint/parser', // Specifies the ESLint parser
+  extends: [
+    'plugin:@typescript-eslint/recommended', // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+    'plugin:react/recommended',
+    'plugin:jsx-control-statements/recommended',
+    'prettier/@typescript-eslint', // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+    'plugin:prettier/recommended', // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+    'prettier/react'
+  ],
+  "settings": {
+    "react": {
+      "version": "detect",
+    }
+  },
+  plugins: ['@typescript-eslint', 'react', 'jsx-control-statements', 'prettier'],
+  env: {
+    browser: true,
+    node: true,
+    es6: true,
+    mocha: true,
+    'jsx-control-statements/jsx-control-statements': true
+  },
+  globals: {
+    $: true
+  },
+  rules: {
+    'prettier/prettier': 1,
+    'no-console': ['warn', { allow: ['warn', 'error'] }],
+    "eqeqeq": ['warn', 'always'],
+    "prefer-const": ['error', {"destructuring": "all", "ignoreReadBeforeAssign": true}],
+    '@typescript-eslint/no-explicit-any': 0,
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    '@typescript-eslint/indent': ['error', 2, { VariableDeclarator: 2, SwitchCase: 1 }],
+    '@typescript-eslint/no-unused-vars': 0,
+    "@typescript-eslint/interface-name-prefix": 0,
+    "@typescript-eslint/explicit-member-accessibility": 0,
+    "@typescript-eslint/no-triple-slash-reference": 0,
+    "@typescript-eslint/ban-ts-ignore": 0,
+    "@typescript-eslint/no-this-alias": 0,
+    "@typescript-eslint/triple-slash-reference": ['error', { "path": "always", "types": "never", "lib": "never" }],
+    // React相关校验规则
+    "react/jsx-indent": [2, 2],
+    "react/jsx-no-undef": [2, { allowGlobals: true }],
+    "react/prop-types":1,
+    "jsx-control-statements/jsx-use-if-tag": 0
+  }
 };

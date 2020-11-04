@@ -15,7 +15,7 @@ const resverse = function (num) {
   const arrStr = numStr.split("");
   let str = "";
   const getStr = function (arrStr) {
-    let len = arrStr.length;
+    const len = arrStr.length;
     if(len === 0) {
       return;
     }

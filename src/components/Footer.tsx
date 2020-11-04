@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import FilterLink from '@/pages/containers/FilterLink';
-import { VisibilityFilters } from '@/redux/actions'
+import { VisibilityFilters } from '@/redux/actions';
 
 const Footer = () => (
   <div>
@@ -9,6 +9,6 @@ const Footer = () => (
     <FilterLink filter={VisibilityFilters.SHOW_ACTIVE}>Active</FilterLink>
     <FilterLink filter={VisibilityFilters.SHOW_COMPLETED}>Completed</FilterLink>
   </div>
-)
+);
 
-export default Footer
+export default Footer;

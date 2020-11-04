@@ -12,10 +12,9 @@ function uuid() {
 }
 
 export default class Emitter {
-  
   events = {};
 
-  on(name, handler) {
+  on(name: string, handler: () => void) {
     const { events } = this;
     if (!events[name]) {
       this.events[name] = { list: [] };
@@ -28,18 +27,18 @@ export default class Emitter {
     return token;
   }
 
-  emit(name, data, token) {
+  emit(name: string, data: any, token: string) {
     const event = this.events[name];
     if (!event) {
       return false;
     }
     if (token) {
-      const ret = event.list.find((item) => item.token === token);
+      const ret = event.list.find((item: any) => item.token === token);
       if (ret) {
         ret.handler.call(this, data);
       }
     } else {
-      event.list.forEach((item) => {
+      event.list.forEach((item: any) => {
         item.handler.call(this, data);
       });
     }
@@ -48,20 +47,20 @@ export default class Emitter {
     }
   }
 
-  off(name, token) {
+  off(name: string, token: string) {
     const event = this.events[name];
     if (!event) {
       return false;
     }
     if (token) {
-      const index = event.list.findIndex((item) => item.token === token);
+      const index = event.list.findIndex((item: any) => item.token === token);
       this.events[name].list.splice(index, 1);
     } else {
       delete this.events[name];
     }
   }
 
-  once(name, handler) {
+  once(name: string, handler: () => void) {
     const { events } = this;
     if (!events[name]) {
       this.events[name] = { list: [], once: true };
